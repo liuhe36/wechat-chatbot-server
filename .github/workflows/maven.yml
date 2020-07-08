@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - run : echo "::set-env name=PROJECT_NAME::`expr $GITHUB_REPOSITORY ':' '[^/]*/\(.*\)'`"
-    - run : echo "::set-env name=DOCKER_USERNAME::shadowdk"
+    - run : echo "::set-env name=DOCKER_USERNAME::${{ secrets.DOCKER_USERNAME }}"
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
