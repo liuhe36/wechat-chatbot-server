@@ -23,8 +23,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml && pwd && cp target/*.jar ./
     - name: env
-      run : echo "`expr '$GITHUB_REPOSITORY' ":" '[^/]*/\(.*\)'`"
-      #run : echo "::set-env name=PROJECT_NAME::`expr '$GITHUB_REPOSITORY' \: '[^/]*/\(.*\)'`"
+      #run : echo "`expr '$GITHUB_REPOSITORY' ":" '[^/]*/\(.*\)'`"
+      run : echo "::set-env name=PROJECT_NAME::`expr '$GITHUB_REPOSITORY' ":" '[^/]*/\(.*\)'`"
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
