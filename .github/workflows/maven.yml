@@ -25,10 +25,12 @@ jobs:
     - name: env
       #run : echo `expr '$GITHUB_REPOSITORY' ':' '[^/]*/\(.*\)'`
       run : echo "::set-env name=PROJECT_NAME::`expr $GITHUB_REPOSITORY ':' '[^/]*/\(.*\)'`"
+      env:
+        DOCKER_USERNAME : shadowdk 
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: shadowdk/${{env.PROJECT_NAME}}
+        name: ${{env.DOCKER_USERNAME}}/${{env.PROJECT_NAME}}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: src/main/docker/Dockerfile
