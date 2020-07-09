@@ -5,6 +5,8 @@ import com.swordintent.wx.mp.handler.MsgHandler;
 import com.swordintent.wx.mp.handler.SubscribeHandler;
 import com.swordintent.wx.mp.handler.UnsubscribeHandler;
 import com.swordintent.wx.mp.handler.bot.ChatBotHandler;
+import com.swordintent.wx.mp.handler.mcc.TextMsgQueryMccHandler;
+import com.swordintent.wx.mp.handler.mcc.TextMsgReportErrorHandler;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -41,6 +43,9 @@ public class WxMpConfiguration {
     private final WxMpProperties properties;
 
     private final ChatBotHandler chatBotHandler;
+
+    private final TextMsgQueryMccHandler textMsgMCCHandler;
+    private final TextMsgReportErrorHandler textMsgBaoCuoHandler;
 
     @Bean
     public WxMpService wxMpService() {
@@ -87,6 +92,8 @@ public class WxMpConfiguration {
 
     private void handleTextMsg(WxMpMessageRouter router) {
         //聊天
+        router.rule().async(false).msgType(TEXT).matcher(this.textMsgMCCHandler).handler(this.textMsgMCCHandler).end();
+        router.rule().async(false).msgType(TEXT).matcher(this.textMsgBaoCuoHandler).handler(this.textMsgBaoCuoHandler).end();
         router.rule().async(false).msgType(TEXT).matcher(this.chatBotHandler).handler(this.chatBotHandler).end();
     }
 
